@@ -1,23 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import Navbar from './components/Navbar';
+import {Routes,Route} from "react-router-dom";
+import Home from './components/Home';
+import Setting from './components/Setting';
+import Auth from './components/Auth';
+import Error from './components/Error';
+import Users from './components/Users';
+import Books from './components/Books';
+import Login from './components/Login';
+import { useContext } from 'react';
+import { ThemeContext } from './contexts/ThemeContext';
 
 function App() {
+  const {theme} = useContext(ThemeContext);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={theme} id="App">
+      <Navbar />
+      <Routes>
+        <Route path='/' element={<Home />}></Route>
+        <Route path='/setting' element={<Setting />}></Route>
+        <Route path='/users' element={<Auth><Users /></Auth>}></Route>
+        <Route path='/books' element={<Auth><Books /></Auth>}></Route>
+        <Route path='/login' element={<Login />}></Route>
+        <Route path='*' element={<Error />}></Route>
+      </Routes>
     </div>
   );
 }
